@@ -74,8 +74,8 @@ class Tramite(models.Model):
     objects = TramiteManager()
 
     def __str__(self):
-            return "Numero de tramite: {} - Profesional: {} - Propietario: {}".format(self.pk, self.profesional,
-                                                                                  self.propietario)
+            return "Nro: {} - Profesional: {} - Propietario: {} - Estado: {}".format(self.pk, self.profesional,
+                                                                                  self.propietario, self.estado())
 
     def saldo_restante_a_pagar(self):
         if self.monto_a_pagar == None or self.monto_pagado == None:
@@ -135,6 +135,94 @@ class Tramite(models.Model):
         self.profesional = profesional
         self.save()
 
+    """
+    Metodo que se encarga de verificar si para un tramite se puede pedir final de obra
+    """
+    def se_puede_pedir_final_de_obra(self):
+        # tiene que estar en los estados de tipo 14 (Aprobado), 22 (Inspeccionado), 21 (AgendadoInspeccion), 24 (FinalObraParcialSolicitado) y pago en su totalidad
+        # Verifico de tener estados necesarios para pedir un final de obra
+        estados_filtrados = filter(lambda estado: (estado.tipo == 14 or estado.tipo == 22 or estado.tipo == 21 or estado.tipo == 24), self.estados.all())
+        estados_siguientes= filter(lambda estado: (estado.tipo == 23 or estado.tipo==25), self.estados.all())
+
+        if  len(estados_filtrados) >= 1 and self.esta_pagado() and len(estados_siguientes)==0:
+            return True
+        else:
+            return False
+
+    def se_puede_pedir_no_final_de_obra_total(self):
+        # tiene que estar en los estados de tipo 14 (Aprobado), 22 (Inspeccionado), 21 (AgendadoInspeccion), 24 (FinalObraParcialSolicitado) y pagado en su totalidad
+        # Verifico de tener estados necesarios para pedir un no final de obra total
+        estados_filtrados = filter(lambda estado: (estado.tipo == 14 or estado.tipo == 22 or estado.tipo == 21 or estado.tipo == 24), self.estados.all())
+        estados_siguientes= filter(lambda estado: (estado.tipo == 25 or estado.tipo == 23), self.estados.all())
+
+        if  len(estados_filtrados) >= 1 and self.esta_pagado() and len(estados_siguientes)==0:
+            return True
+        else:
+            return False
+
+    def se_puede_pedir_final_de_obra_parcial(self):
+        # tiene que estar en los estados de tipo 14 (Aprobado), 22 (Inspeccionado), 21 (AgendadoInspeccion)
+        # Verifico de tener estados necesarios para pedir un final de obra parcial
+        estados_filtrados = filter(lambda estado: (estado.tipo == 14 or estado.tipo == 22 or estado.tipo == 21), self.estados.all())
+        estados_siguientes= filter(lambda estado: (estado.tipo == 23 or estado.tipo == 24 or estado.tipo == 25), self.estados.all())
+
+        if  len(estados_filtrados) >= 1 and self.esta_pagado() and len(estados_siguientes)==0:
+            return True
+        else:
+            return False
+
+    def se_puede_pedir_no_aprobar(self):
+        # tiene que estar en los estados de tipo 12 (PrimerInspeccion) y primer cuota paga
+        # Verifico de tener estados necesarios para no aprobar un tramite
+        estados_filtrados = filter(lambda estado: (estado.tipo == 12), self.estados.all())
+        estados_siguientes= filter(lambda estado: (estado.tipo == 15 or estado.tipo == 13), self.estados.all())
+
+        valor_cuota = self.monto_a_pagar / 12
+
+        if self.monto_a_pagar == 0:
+            return False
+        else:
+            if len(estados_filtrados) >= 1 and self.monto_pagado >= valor_cuota and len(estados_siguientes)==0:
+                return True
+            else:
+                return False
+
+    def se_puede_aprobar(self):
+        estados_filtrados = filter(lambda estado: (estado.tipo == 12), self.estados.all())
+        estados_siguientes= filter(lambda estado: (estado.tipo == 15 or estado.tipo == 13), self.estados.all())
+
+        valor_cuota = self.monto_a_pagar / 12
+
+        if self.monto_a_pagar == 0:
+            return False
+        else:
+            if  len(estados_filtrados) >= 1 and self.monto_pagado >= valor_cuota and len(estados_siguientes)==0:
+                return True
+            else:
+                return False
+
+    def propietario_solicita_final_de_obra(self):
+        # Tiene que estar en el estado 31 (NoFinalizado)
+        estados_filtrados = filter(lambda estado: (estado.tipo == 31), self.estados.all())
+        estados_siguientes= filter(lambda estado: (estado.tipo == 32), self.estados.all())
+
+        if len(estados_filtrados) >= 1 and self.esta_pagado and len(estados_siguientes)==0:
+            return True
+        else:
+            return False
+
+    def propietario_solicita_aprobar_tramite(self):
+        # tiene que estar en los estados de tipo 16 (NoAprobado) y primer cuota paga
+        # Verifico de tener estados necesarios para no aprobar un tramite
+        estados_filtrados = filter(lambda estado: (estado.tipo == 16), self.estados.all())
+        estados_siguientes= filter(lambda estado: (estado.tipo == 17), self.estados.all())
+
+        valor_cuota = self.monto_a_pagar / 12
+
+        if  len(estados_filtrados) >= 1 and self.monto_pagado >= valor_cuota and len(estados_siguientes)==0:
+            return True
+        else:
+            return False
 
 class Estado(models.Model):
     TIPO = 0

@@ -20,11 +20,9 @@ class FormularioDocumento(forms.ModelForm):
     class Meta:
         model = Documento
         fields = ('tipo_documento', 'file')
-
-    def __init__(self, *args, **kwargs):
-        super(FormularioDocumento, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.add_input(Submit(self.SUBMIT, 'Enviar Solicitud'))
+        widgets = {
+            'tipo_documento': forms.HiddenInput()
+        }
 
     def save(self, commit=True, tramite=None):
         doc = super(FormularioDocumento, self).save(commit=False)
@@ -44,7 +42,6 @@ class FormularioDocumentosSetBase(BaseFormSet):
         self.helper = FormHelper()
 
         self.helper.form_tag = False
-
 
 
 def FormularioDocumentoSetFactory(tipos):
