@@ -1,0 +1,332 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags%}
+
+{% block estilos %}
+<link rel="stylesheet" type="text/css" href="{% static perfil %}">
+{% endblock %}
+
+{% block imagenusuario %}
+<img src= "{{user.persona.perfilFoto.url}}" width=40 height=40 class="img-circle">
+{% endblock %}
+
+{% block barra %}
+<div id="contenedor_botoncalapsable_sidebar">
+	<button type="button" class="btn-collapsible-sidebar" onclick='mostrarBarra()' id="botonOn">
+		<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+	</button>
+</div>
+<ul class="sidebar sidebar-1">
+	<font size="2">
+		<li><a href="#" class="current"><font>Jefe Inspector</font></a></li>
+		<li><a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" onclick='mostrarSubmenu("sin_submenu")'>Agendar inspección {% if ctxtramitesconinspeccion.len_tramites > 0 %}<span class="badge confBadge">{{ ctxtramitesconinspeccion.len_tramites }}</span>{% endif %}</a></li>
+		<li><a data-toggle="collapse" data-parent="#accordion" href="#collapsethree" aria-expanded="false" aria-controls="collapsethree" onclick='mostrarSubmenu("sin_submenu")'>Cargar inspección {% if ctxtramitesagendados.len_tramites > 0 %}<span class="badge confBadge">{{ ctxtramitesagendados.len_tramites }}</span>{% endif %}</a></li>
+		<li><a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour" onclick='mostrarSubmenu("sin_submenu")'>Mis inspecciones</a></li>
+		<li><a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive" onclick='mostrarSubmenu("sin_submenu")'>Inspecciones de inspectores</a></li>
+		<li><a data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix" onclick='mostrarSubmenu("sin_submenu")'>Cambiar inspector de inspección</a></li>
+		<li><a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" onclick='mostrarSubmenu("tareasDatosPersonales"),opcionesDatosPersonales("nada")'>Mis datos <span class="caret"></span></a></li>
+		<ul class="sidebar sidebar-2" style="display:none;" id="tareasDatosPersonales">
+	  		<li><a href="#" onclick='opcionesDatosPersonales("alta_datos_personales")'>Datos personales</a></li>
+	  		<li><a href="#" onclick='opcionesDatosPersonales("alta_contrasenia")'>Contraseña</a></li>
+		</ul>
+		<!--li><a data-toggle="collapse" data-parent="#accordion" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine" onclick='mostrarSubmenu("consultasInformes")'>Consultas e Informes <span class="caret"></span></a></li>
+		<ul class="sidebar sidebar-2" style="display:none;" id="consultasInformes">
+			<li><a href="#">Consulta 1</a></li>
+			<li><a href="#">Consulta 2</a></li>
+			<li><a href="#">Consulta 3</a></li>
+		</ul-->
+	</font>
+</ul>
+{% endblock %}
+
+{% block contenido %}
+<div id="contenedor_botoncalapsable_resto"></div>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+	<div class="panel">
+		<div class="panel-heading box" role="tab" id="headingTwo">
+			<h5 class="panel-title">
+				<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" onclick='mostrarSubmenu("sin_submenu")'>
+					<font color="#ffffff" size="2">Agendar inspección</font>
+				</a>
+			</h5>
+		</div>
+		<div id="collapseTwo" class="panel-collapse collapse colorp" role="tabpanel" aria-labelledby="headingTwo">
+			<div class="panel-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							{% block contenido_tramite_inspeccion_final %}
+							{% include "persona/jefe_inspector/tramite_con_inspeccion_list.html" with tramites=ctxtramitesconinspeccion.tramites %}
+							{% endblock %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel ">
+		<div class="panel-heading" role="tab" id="headingthree">
+			<h5 class="panel-title">
+				<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsethree" aria-expanded="false" aria-controls="collapsethree"  onclick='mostrarSubmenu("sin_submenu")'>
+					<font color="#ffffff" size="2">Cargar inspección</font>
+				</a>
+			</h5>
+		</div>
+		<div id="collapsethree" class="panel-collapse collapse colorp" role="tabpanel" aria-labelledby="headingthree">
+			<div class="panel-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							{% block contenido_tramites_agendados_jefe_inspector %}
+							{% include "persona/jefe_inspector/tramites_agendados_jefe_inspector.html" with tramites=ctxtramitesagendados.tramites %}
+							{% endblock %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel">
+		<div class="panel-heading" role="tab" id="headingFour">
+			<h5 class="panel-title">
+				<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour"  onclick='mostrarSubmenu("sin_submenu")'>
+					<font color="#ffffff" size="2">Mis inspecciones</font>
+				</a>
+			</h5>
+		</div>
+		<div id="collapseFour" class="panel-collapse collapse colorp" role="tabpanel" aria-labelledby="headingFour">
+			<div class="panel-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							{% block contenido_tramites_inspeccionados %}
+							{% include "persona/jefe_inspector/tramites_inspeccionados.html" with estados=ctxtramitesinspeccionados%}
+							{% endblock %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel">
+		<div class="panel-heading box" role="tab" id="headingFive">
+			<h5 class="panel-title">
+				<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="true" aria-controls="collapseFive" onclick='mostrarSubmenu("sin_submenu")'>
+					<font color="#ffffff" size="2">Inspecciones de inspectores</font>
+				</a>
+			</h5>
+		</div>
+		<div id="collapseFive" class="panel-collapse collapse colorp" role="tabpanel" aria-labelledby="headingFive">
+			<div class="panel-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							{% block contenido_tramites_inspeccionados_por_inspectores %}
+							{% include "persona/jefe_inspector/tramites_inspeccionados_por_inspectores.html" with estados=ctxtramitesinspeccionadosporinspectores%}
+							{% endblock %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel">
+		<div class="panel-heading box" role="tab" id="headingSix">
+			<h5 class="panel-title">
+				<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="true" aria-controls="collapseSix" onclick='mostrarSubmenu("sin_submenu")'>
+					<font color="#ffffff" size="2">Cambiar inspector de inspección</font>
+				</a>
+			</h5>
+		</div>
+		<div id="collapseSix" class="panel-collapse collapse colorp" role="tabpanel" aria-labelledby="headingSix">
+			<div class="panel-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							{% block contenido_cambiar_inspectores_de_inspeccion %}
+							{% include "persona/jefe_inspector/inspectores_con_inspeccion_agendada.html" with estados=ctxinspectoresconinspeccionesagendadas%}
+							{% endblock %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-custom">
+		<div class="panel-heading panel-heading-custom box" role="tab" id="headingOne">
+			<h5 class="panel-title">
+				<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" onclick='mostrarSubmenu("tareasDatosPersonales")'>
+					<font color="#ffffff" size="2">Mis datos</font>
+				</a>
+			</h5>
+		</div>
+		<div id="collapseOne" class="panel-collapse collapse colorp" role="tabpanel" aria-labelledby="headingOne">
+			<div class="panel-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+								<select class="form-control input-sm" id="opcionesDeDatosPersonales" name="Opciones de Datos Personales" onChange="opcionesDatosPersonales(this.value);">
+									<option selected value="nada"> ¿Que desea hacer? </option>
+									<option value="alta_datos_personales">Modificar datos personales</option>
+									<option value="alta_contrasenia">Modificar contrasena</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container-fluid" id="alta_datos_personales" style="display: none;">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<hr>
+							<div class="container-fluid">
+								<form method='POST' action='' enctype="multipart/form-data">
+									<div class="row">
+										<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" id="contenedor_datos_usuario"></div>
+										<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" id="contenedor_datos_usuario_dos"></div>
+										<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" id="contenedor_foto_perfil_usuario"></div>
+									</div>
+									<div id="contenedor_boton_cambia_datos" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="right">
+										<button  class="btn btn-danger btn-sm" type="reset" title="Borrar datos del formulario" onclick="limpiar1()">
+											Limpiar
+										</button>
+									</div>
+									{% block modificar_datospersonales_usuario %}
+									{% crispy usuario_datospersonales_form %}
+									{% endblock %}
+									<br>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container-fluid" id="alta_contrasenia" style="display: none;">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<hr>
+							<div class="container-fluid">
+								<form method='POST' action='' enctype="multipart/form-data">
+									<div class="row">
+										<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" id="contenedor_datos_pass1"></div>
+										<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" id="contenedor_datos_pass2"></div>
+									</div>
+									<div id="contenedor_boton_cambia_pass" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="right">
+										<button class="btn btn-danger btn-sm" type="reset" title="Borrar datos del formulario" onclick="limpiar1()">
+											Limpiar
+										</button>
+									</div>
+									{% block usuario_contrasenia_form %}
+									{% crispy usuario_contrasenia_form %}
+									{% endblock %}
+									<br>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel" style="display: none;">
+		<div class="panel-heading box" role="tab" id="headingNine">
+			<h5 class="panel-title">
+				<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine" onclick='mostrarSubmenu("sin_submenu")'>
+					<font color="#ffffff" size="2">Consultas e Informes</font>
+				</a>
+			</h5>
+		</div>
+		<div id="collapseNine" class="panel-collapse collapse colorp" role="tabpanel" aria-labelledby="headingNine">
+			<div class="panel-body">
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+	$('#id_boton_ayuda_2').hide();
+	$('#id_boton_ayuda').show();
+	$('#id_boton_ayuda').click(function() {
+		nombre_colapsable = $(".panel-collapse[aria-expanded='true']");
+		if (nombre_colapsable.length>0){
+			nombre_colapsable = $(nombre_colapsable).parent().find('.panel-title a')[0].innerText;
+
+			if (nombre_colapsable == "Agendar inspección"){
+				window.open("{% url 'manual' 'archivos/agendar_inspeccion.html' %}", '_blank');
+			}
+			else if (nombre_colapsable == 'Cargar inspección'){
+				window.open("{% url 'manual' 'archivos/cargar_inspeccion.html' %}", '_blank');
+			}
+			else if (nombre_colapsable == 'Mis inspecciones') {
+				window.open("{% url 'manual' 'archivos/mis_inspecciones.html' %}", '_blank');
+			}
+			else if (nombre_colapsable == 'Inspecciones de inspectores') {
+				window.open("{% url 'manual' 'archivos/inspecciones_de_inspectores.html' %}", '_blank');
+			}
+			else if (nombre_colapsable == 'Cambiar inspector de inspección') {
+				window.open("{% url 'manual' 'archivos/cambiar_inspector.html' %}", '_blank');
+			}
+
+			else {
+				descripcion = $('#opcionesDeDatosPersonales').val();
+				if (descripcion == 'alta_datos_personales') {
+					window.open("{% url 'manual' 'archivos/datos_personales.html' %}", '_blank');
+				}
+				if (descripcion == 'alta_contrasenia'){
+					window.open("{% url 'manual' 'archivos/cambiar_contraseña.html' %}", '_blank');
+				}
+			}
+		}
+		else{
+			window.open("{% url 'manual' 'index.html' %}", '_blank');
+		}
+	});
+
+	var c = document.getElementById("botonConfiguracion");
+	c.style.display= '';
+	var d = document.getElementById("imagenusuario");
+	d.style.display= '';
+</script>
+
+<script type="text/javascript">
+	function mostrarSubmenu(subformulario){
+		if(subformulario=="sin_submenu"){
+			$('.' + "sidebar-2").hide();
+		}
+		else{
+			var idSubformulario=document.getElementById(subformulario).id;
+			if($('#' + idSubformulario).is(':hidden')){
+				$('.' + "sidebar-2").hide();
+				$('#' + idSubformulario).show();
+			}else{
+				$('#' + idSubformulario).hide();
+			}
+		}
+	}
+</script>
+
+<script>
+    function agregarHora(boton){
+        fecha = $($(boton).parent().parent()).find('.mi-datepicker').val();
+        id_tramite = $($(boton).parent().parent().find('td')[0]).text();
+        var d = new Date(fecha);
+		var n = d.toLocaleString();
+        url = '/persona/agendar_inspeccion_final/'+id_tramite+'/?msg='+n;
+        location.href = url;
+    }
+</script>
+
+<script>
+	$(function(){
+		$('.mi-datepicker').datetimepicker({
+            useCurrent: false,
+            minDate: moment(),
+            autoclose: true,
+            startDate: '-0d',
+            changeMonth: true
+		});
+	});
+</script>
+{% endblock%}

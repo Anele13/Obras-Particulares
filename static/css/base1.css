@@ -1,0 +1,419 @@
+/* CSS Document */
+
+/* opciones generales */
+
+.color1 {
+	background: transparent;
+	color:#fff;
+}
+
+.color2 {
+    background: transparent;
+	color:#7DD201;
+}
+
+.color3 {
+	background:#5cbde7;
+	color:#fff;
+}
+
+
+/*color de panel de graficos, siempre blanco*/
+.colorG {
+	background:#ffffff;
+	color:#444444   ;
+}
+
+
+/*badge, burbuja de notificacion - cantidad*/
+.confBadge {
+    position: absolute;
+    right: 20px;
+	color:#ffffff;
+    font-size: 9px;
+    border-radius: 6px;
+    border: 0px solid #FA3E3E;
+    background:#B5DEE0;
+}
+
+
+section {
+	background:#5cbde7;
+	color:#fff;
+}
+
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+footer {
+	background:#ffffff;
+	color:#024F59;
+	position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.prehead {
+	background: #ffffff;
+	color:#024F59;
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+	min-height: 100vh;
+	width: 100%;
+	xoverflow: hidden;
+	padding-top: 140px;
+	padding-bottom: 40px;
+    background: #C8D4D0;
+}
+
+
+/* color del nav igual al del header*/
+
+.navbar{
+        border-color: #2c3e50 !important;
+}
+
+header{
+	background:#024F59;
+	/*background:#04142b;*/
+	color: #ffffff;
+	transition: 0.5s;
+}
+
+
+img.logo {
+	height: 50px;
+
+}
+
+/* eso es para modifical el header cuando top */
+
+header.sticky {
+	position: fixed;
+	left: 0; right: 0;
+	height: 60px;
+	padding: 0px 0 10px 0;
+	box-shadow: 0 5px 15px black;
+	text-shadow: 0 0 20px black;
+}
+
+.sticky img.logo {
+	height: 40px;
+
+}
+
+.pad18 {
+	padding-top: 18px;
+}
+
+.pad12 {
+	padding-top: 12px;
+}
+
+/* configuracion panel gris*/
+
+.panel-group > .panel {
+    border-color: #7BABAF;
+    border-radius: 0px;
+    background:#7BABAF;
+}
+
+.panel-custom {
+    border-color: #7BABAF;
+    border-radius: 0px;
+    background:#7BABAF;
+}
+
+.panel-custom > .panel-heading-custom {
+    background: #7BABAF;
+    border-radius: 0px;
+}
+
+/* cambio de color de heading*/
+
+.box {
+  	-webkit-transition: background-color 400ms ease-out;
+	-moz-transition: background-color 400ms ease-out;
+	-o-transition: background-color 400ms ease-out;
+	transition: background-color 400ms ease-out;
+}
+
+.box:hover {
+  background-color: #317A89;
+  cursor: pointer;
+}
+
+label {
+	color: #444444;
+}
+
+a:link {
+	text-decoration:none;
+}
+
+.colorp {
+	background: #ffffff;
+}
+
+/* menu lateral */
+
+.left-sidebar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+}
+
+.sidebar {
+	/*width: 200px;*/
+	width: 100%;
+	margin-right: 35px;
+	background-color: #7BABAF;
+	list-style-type: none;
+	padding-left: 0;
+	color: #7DD201;
+}
+
+.sidebar li a {
+	color: #ffffff;
+	box-sizing: border-box; }
+
+.sidebar li a:hover {
+	color: #ffffff; }
+
+/* sidebar 1 */
+
+.sidebar-1 li a {
+	display: block;
+	padding: 10px 20px;
+	border-left: 5px solid transparent;
+	transition: all 400ms ease;
+}
+
+.sidebar-1 li a:hover,
+.sidebar-1 li a.current {
+    color: #7DD201;
+	background-color: #317A89;
+	border-left: 5px solid #7DD201;
+}
+
+.sidebar-1 li a:focus{
+	color: #7DD201;
+	background-color: #317A89;
+	border-left: 5px solid #7DD201;
+}
+
+/*Subemu lateral*/
+
+.sidebar-2 li a {
+	color: white;
+	background-color: #86B4C1;
+	box-sizing: border-box; }
+
+
+.sidebar-2 li a {
+	display: block;
+	padding: 10px 20px;
+	border-left: 5px solid transparent;
+	transition: all 400ms ease;
+}
+
+.sidebar-2 li a:hover,
+.sidebar-2 li a.current {
+	color: #7DD201;
+	background-color: #ffffff;
+	border-left: 3px solid #7DD201;
+}
+
+.sidebar-2 li a:focus{
+	color: #7DD201;
+	background-color: #ffffff;
+	border-left: 3px solid #7DD201;
+}
+
+
+/* ----------------------------------cryspy-----------------------------*/
+
+/* Ocultar asterisco de campo obligatorio*/
+
+.asteriskField {
+    display: ;
+   }
+
+/*--------------boton colapsable--------------------------*/
+
+.btn-collapsible {
+  overflow: hidden;
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -ms-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+  max-width: 40px;
+}
+.btn-collapsible.btn-xs {
+  max-width: 25px;
+}
+.btn-collapsible.btn-sm {
+  max-width: 34px;
+}
+.btn-collapsible.btn-lg {
+  max-width: 50px;
+}
+.btn-collapsible span {
+  opacity: 0;
+  text-indent: -6px;
+  display: inline-block;
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -ms-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+}
+.btn-collapsible:hover {
+  max-width: 300px;
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+.btn-collapsible:hover span {
+  opacity: 1;
+  text-indent: 0px;
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+
+/*********** tablas*************/
+
+.dataTables_wrapper .dataTables_length label{
+    color: #444444
+}
+
+.dataTables_filter label {
+    color: #444444
+}
+
+select {
+    color: #444444
+}
+
+.dataTables_filter input {
+    color: #444444
+}
+
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate label{
+    color: #444444
+}
+
+/*********** boton que comprime sidebar *************/
+
+.btn-collapsible-sidebar {
+    width:25px;
+    height:25px;
+    padding: 3px 0px 0px 2px;
+    display:block;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    font-size:12px;
+    border:2px solid #ffffff;
+    position: absolute;
+    top: -30.5px;
+    left: 5px;
+    margin-left: 15px;
+    color: #fff;
+    background: transparent;
+	-webkit-transition: -webkit-transform 200ms ease-out;
+	-moz-transition: -moz-transform 200ms ease-out;
+	-o-transition: -o-transform 200ms ease-out;
+}
+
+.btn-collapsible-sidebar:hover{
+    background: #024F59;
+    padding: 0px 0px 0px 3px;
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+}
+
+.spinEffect{
+    padding: 2px 0px 0px 3px;
+    transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+}
+
+.spinEffect:hover{
+    padding: 2px 0px 0px 0px;
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+}
+
+/*************boton redondo**************/
+
+.botonredondoayuda {
+    width:30px;
+    height:30px;
+    display:block;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    font-size:11px;
+    line-height:32px;
+    float:left;
+    border:2px solid #ffffff;
+    background: transparent;
+    color: #fff;
+    position: absolute;
+    text-align: center;
+    line-height: 50%;
+}
+
+.botonredondoayuda:hover{
+    background: #024F59;
+}
+
+/***********+ burbuja ayuda*************/
+
+.triangle-isosceles{
+    position: relative;
+    padding: 9px;
+    margin: 1em 0 3em;
+    color: #024F59;
+    background: #fff;
+    border-radius: 10px;
+    border:2px solid #024F59;
+    text-align: right;
+
+    transition-property: visibility;
+    transition-duration: 0.8s;
+    transition-timing-function: ease-in;
+    transition-delay: 0.1s;
+}
+
+.triangle-isosceles:after{
+    content: "";
+    position: absolute;
+    bottom: -11px;
+    right: 20px;
+    display:block;
+    width:0;
+    height: 0;
+    border-top: 9px solid #ffffff;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+}

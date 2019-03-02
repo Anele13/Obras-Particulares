@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block estilos %}
+<link rel="stylesheet" type="text/css" href="{% static perfil %}">
+{% endblock %}
+
+{% block imagenusuario %}
+<img src= "{{user.persona.perfilFoto.url}}" width=40 height=40 class="img-circle">
+{% endblock %}
+
+{% block barra %}
+<div id="contenedor_botoncalapsable_sidebar">
+	<button type="button" class="btn-collapsible-sidebar" onclick='mostrarBarra()' id="botonOn">
+		<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+	</button>
+</div>
+<ul class="sidebar sidebar-1">
+    <font size="2">
+        <li><a href="javascript:history.back(-1);" class="current"><font>Administrativo</font></a></li>
+    </font>
+</ul>
+{% endblock %}
+
+{% block contenido %}
+<div id="contenedor_botoncalapsable_resto"></div>
+<div class="panel-group">
+	<div class="panel panel-custom">
+		<div class="panel-heading panel-heading-custom box">
+			<h5 class="panel-title">
+				<a>
+					<font color="#ffffff" size="2">Documentos del tramite</font>
+				</a>
+			</h5>
+		</div>
+		<div class="panel-collapse colorp">
+			<div class="panel-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            {% for documento in tramite.documentos.all %}
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="height:360px;">
+                                <div class="thumbnail ">
+                                    <a id="single_image" href="/media/{{documento.file}}" data-fancybox="images" data-caption="{{documento.tipo_documento}}">
+                                        <img src="/media/{{documento.file}}" style="height:200px;">
+                                    </a>
+                                    <br>
+                                    <p style="color: #17202a; font-style: oblique; text-align: center;">{{documento.tipo_documento}} - {{documento.fecha}} </p>
+                                    <form action="">
+                                        <p align="right" >
+                                            <a href="#" class="btn btn-primary btn-collapsible"><i class="glyphicon glyphicon-save"></i><span>  Descargar</span></a>
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="panel panel-custom">
+		<div class="panel-heading panel-heading-custom box">
+			<h5 class="panel-title">
+				<a>
+					<font color="#ffffff" size="2">Documentos para aceptar tramite</font>
+				</a>
+			</h5>
+		</div>
+		<div class="panel-collapse colorp">
+			<div class="panel-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <label>Observaciones:</label>
+                                <input type="hidden" id="id_tramite" value="{{tramite.id}}">
+                                <input class="form-control input-sm" id="id_observaciones" name="" type="text" placeholder="Ingresar observaciones" title="Observaciones" maxlength="100" />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="right">
+                            <a href="{% url 'aceptar_tramite' pk_tramite=tramite.id  %}">
+                                <button type="button" class="btn btn-primary" name="Aceptar">
+                                    Aceptar
+                                </button>
+                            </a>
+                            <a href="javascript:prueba();">
+                                <button type="button" class="btn btn-danger " name="Rechazar">
+                                    Rechazar
+                                </button>
+                            </a>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function prueba(){
+            obs = $("#id_observaciones").val();
+            id_tramite = $("#id_tramite").val();
+            url = '/persona/rechazar_tramite/'+id_tramite+'/?msg='+obs;
+            location.href = url;
+        }
+    </script>
+
+    <script>
+        var c = document.getElementById("botonConfiguracion");
+		c.style.display= '';
+		var d = document.getElementById("imagenusuario");
+		d.style.display= '';
+    </script>
+{% endblock %}

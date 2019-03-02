@@ -1,0 +1,38 @@
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover table-condensed" style="background: white;">
+        <thead>
+            <tr>
+                <th>Nro</th>
+                <th>Propietario</th>
+                <th>Profesional</th>
+                <th>Medidas</th>
+                <th>Tipo</th>
+                <th>Domicilio</th>
+                <th>Fecha</th>
+                <th>Agendar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if tramites %}
+            {% for tramite in tramites %}
+            <tr>
+                <td class="col-xs-1">{{ tramite.id }}</td>
+                <td class="col-xs-2">{{ tramite.propietario }}</td>
+                <td class="col-xs-2">{{ tramite.profesional }}</td>
+                <td class="col-xs-1">{{ tramite.medidas }}</td>
+                <td class="col-xs-2">{{ tramite.tipo_obra }}</td>
+                <td class="col-xs-1">{{ tramite.domicilio }}</td>
+                <td align="center" class="col-xs-2">
+                    <input type='text' class="form-control mi-datepicker input-sm" id='datetimepicker1' style="height:24px; font-size: 1em; width: 120px" readonly>
+                </td>
+                <td align="center" class="col-xs-1">
+                    <button type="button" class="btn btn-primary btn-sm" name="Agendar" onclick="agregarHora(this);">
+                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"> Agendar</span>
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+            {% endif%}
+        </tbody>
+    </table>
+</div>

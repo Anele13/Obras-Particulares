@@ -1,0 +1,49 @@
+<!-- Template que se encarga de mostrar los tipos de documento -->
+{% load staticfiles %}
+
+{% block tipos_de_documento %}
+  <table class="table table-bordered table-striped table-hover table-condensed" style="background: white;">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Fecha de Alta</th>
+        <th>Fecha de Baja</th>
+        <th>Utiliza</th>
+        <th>Requerido Para</th>
+        <th>Estado</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if tipos_de_documento %}
+      {% for tipo_de_documento in tipos_de_documento %}
+      <tr>
+        <td class="col-xs-2">{{ tipo_de_documento.nombre }}</td>
+        <td class="col-xs-2">{{ tipo_de_documento.descripcion }}</td>
+        <td class="col-xs-2">{{ tipo_de_documento.fecha_alta }}</td>
+        <td class="col-xs-2">{{ tipo_de_documento.fecha_baja }}</td>
+        <td class="col-xs-2">{{ tipo_de_documento.quien_lo_utiliza }}</td>
+        <td class="col-xs-2">{{ tipo_de_documento.requerido_para }}</td>
+        {% if tipo_de_documento.activo %}
+        <td class="col-xs-2">Activo</td>
+        {% else %}
+        <td class="col-xs-2">Inactivo</td>
+        {% endif %}
+
+        {% if tipo_de_documento.activo %}
+        <th class="col-xs-2"> <a href="{% url 'activar_tipo_documento' tipo_de_documento.id %}" ><button disabled type="button" class="btn btn-success">Activar</button></a></th>
+        <th class="col-xs-2"> <a href="{% url 'desactivar_tipo_documento' tipo_de_documento.id %}" ><button type="button" class="btn btn-danger">Desactivar</button></a></th>
+        {% else %}
+        <th class="col-xs-2"> <a href="{% url 'activar_tipo_documento' tipo_de_documento.id %}" ><button type="button" class="btn btn-success">Activar</button></a></th>
+        <th class="col-xs-2"> <a href="{% url 'desactivar_tipo_documento' tipo_de_documento.id %}" ><button disabled type="button" class="btn btn-danger">Desactivar</button></a></th>
+        {% endif %}
+      </tr>
+      {% endfor %}
+      {% endif%}
+    </tbody>
+  </table>
+
+{% endblock %}
+

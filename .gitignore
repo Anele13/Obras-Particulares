@@ -1,0 +1,13 @@
+*.py[co]
+db.sqlite3
+.idea/
+*.orig
+persona/migrations/*
+tipos/migrations/*
+tramite/migrations/*
+media/certificado/*
+media/documentos/*
+.vscode/*
+media/fotoperfil/*
+users.xlsx
+.directory

@@ -1,0 +1,40 @@
+{% load staticfiles %}
+
+{% block contenido_tramite_final_obra %}
+<div class="table-responsive">
+  <table class="table table-bordered table-striped table-hover table-condensed" style="background: white;">
+    <thead>
+      <tr>
+        <th>Numero</th>
+        <th>Medidas</th>
+        <th>Tipo</th>
+        <th>Estado</th>
+        <th>Profesional</th>
+        <th>Propietario</th>
+        <th>Ver</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if tramites %}
+      {% for tramite in tramites %}
+      <tr>
+        <td class="col-xs-1">{{ tramite.pk }}</td>
+        <td class="col-xs-1">{{ tramite.medidas }} </td>
+        <td class="col-xs-1">{{ tramite.tipo_obra }}</td>
+        <td class="col-xs-1">{{ tramite.estado }}</td>
+        <td class="col-xs-2">{{ tramite.profesional}}</td>
+        <td class="col-xs-2">{{ tramite.propietario}}</td>
+         <td align="center" class="col-xs-1">
+            <a href="{% url 'cargar_no_final_de_obra_total' pk_tramite=tramite.id %}">
+                <button type="button" class="btn btn-primary btn-xs" name="Aceptar">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"> Documentos</span>
+                </button>
+            </a>
+        </td>
+      </tr>
+      {% endfor %}
+      {% endif%}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
